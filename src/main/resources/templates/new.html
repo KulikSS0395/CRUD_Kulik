@@ -9,8 +9,8 @@
 
 <form th:method="POST" th:action="@{/admin/users}" th:object="${user}">
 
-    <label for="firstName">Enter name:</label>
-    <input type="text" th:field="*{firstName}" id="firstName"/>
+    <label for="firstName">Enter firstName:</label>
+    <input name="firstName" required placeholder="firstName" th:field="*{firstName}" id="firstName"/>
     <br/>
 
     <label for="lastName">Enter lastName:</label>
@@ -26,9 +26,17 @@
     <br/>
 
     <label for="password">Enter password:</label>
-    <input type="text" th:field="*{password}" id="password"/>
+    <input name="password" required placeholder="Password"  id="password"/>
     <br/>
 
+    <label for="roles">Select role:</label>
+    <input type="checkbox" th:each="role:${roles}"
+           th:id="${role.getId()}"
+           th:value="role"
+           th:name="${role.getId()}"
+           th:utext="${role.getRole()}" id="roles">
+
+    <br/>
     <input type="submit" value="Create"/>
 
 </form>

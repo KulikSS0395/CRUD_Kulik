@@ -10,7 +10,7 @@
 <form th:method="PUT" th:action="@{/admin/users/{id}(id=${user.getId()})}" th:object="${user}">
 
     <label for="firstName">Enter firstName:</label>
-    <input type="text" th:field="*{firstName}" id="firstName"/>
+    <input name="firstName" required placeholder="firstName" th:field="*{firstName}" id="firstName"/>
     <br/>
 
     <label for="lastName">Enter lastName:</label>
@@ -25,8 +25,19 @@
     <input type="text" th:field="*{email}" id="email"/>
     <br/>
 
+    <label for="password">Enter password:</label>
+    <input name="password" required placeholder="Password"  id="password"/>
     <br/>
-    <input type="submit" value="Update"/>
+
+    <label for="roles">Select role:</label>
+    <input type="checkbox" th:each="role:${roles}"
+           th:id="${role.getId()}"
+           th:value="role"
+           th:name="${role.getId()}"
+           th:utext="${role.getRole()}" id="roles">
+
+    <br/>
+    <input type="submit" value="Create"/>
 
 </form>
 

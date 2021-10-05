@@ -27,9 +27,9 @@
     <td th:utext="${user.getAge()}"></td>
     <td th:utext="${user.getEmail()}"></td>
     <td th:utext="${user.getRolesToString()}"></td>
-    <td><a th:href="@{users/{id}/edit(id=${user.getId()})}">Edit</a></td>
+    <td><a th:href="@{/admin/users/{id}/edit(id=${user.getId()})}">Edit</a></td>
     <td>
-        <form th:method="DELETE" th:action="@{users/{id}(id=${user.getId()})}">
+        <form th:method="DELETE" th:action="@{/admin/users/{id}(id=${user.getId()})}">
             <input type="submit" value="Delete">
         </form>
     </td>
