@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/admin/users}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/}" th:object="${user}">
 
     <label for="firstName">Enter firstName:</label>
     <input name="firstName" required placeholder="firstName" th:field="*{firstName}" id="firstName"/>

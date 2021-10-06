@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form th:method="PUT" th:action="@{/admin/users/{id}(id=${user.getId()})}" th:object="${user}">
+<form th:method="PUT" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
 
     <label for="firstName">Enter firstName:</label>
     <input name="firstName" required placeholder="firstName" th:field="*{firstName}" id="firstName"/>

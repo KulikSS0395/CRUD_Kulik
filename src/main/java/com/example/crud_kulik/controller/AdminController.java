@@ -7,6 +7,7 @@ import com.example.crud_kulik.service.UserService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,8 @@ public class AdminController {
     }
 
     @GetMapping("")
-    public String allUsers(Model model) {
+    public String allUsers(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("logUser", user);
         model.addAttribute("users", userService.getListUsers());
         return "admin";
     }
@@ -62,7 +64,7 @@ public class AdminController {
         return "redirect:";
     }
 
-    @GetMapping("/{id}/edit")
+    @PostMapping("/{id}/edit")
     public String editUser(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("roles", roleService.allRoles());
