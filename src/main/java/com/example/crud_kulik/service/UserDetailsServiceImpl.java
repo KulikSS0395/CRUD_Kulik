@@ -19,6 +19,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return usersRepository.findByFirstName(s);
+
+        if (s.contains("@")) {
+            return usersRepository.findUsersByEmail(s);
+        } else {
+            return usersRepository.findByFirstName(s);
+        }
     }
 }

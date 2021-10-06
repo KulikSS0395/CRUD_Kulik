@@ -36,8 +36,10 @@ public class UserInitTest {
                                 "vanko@mail.ru", "0000", Collections.singleton(role2));
         User adminUser = new User("admin", "admin", 33,
                                 "admin@admin.ru", "admin", allRole);
+
+
         User testUser = new User("semen", "vichnevskii", 44,
-                                    "semen@bk.ri","012345", Collections.singleton(role2));
+                                    "sem@yandex.ru","012345", Collections.singleton(role2));
 
         roleService.addRole(role1);
         roleService.addRole(role2);

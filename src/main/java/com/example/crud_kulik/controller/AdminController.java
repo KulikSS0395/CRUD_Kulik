@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashSet;
 import java.util.Set;
 
-
 @Controller
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @RequestMapping("admin")
@@ -30,20 +29,20 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping("users")
+    @GetMapping("")
     public String allUsers(Model model) {
         model.addAttribute("users", userService.getListUsers());
-        return "users";
+        return "admin";
     }
 
-    @GetMapping("users/new")
+    @GetMapping("/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("roles", roleService.allRoles());
         return "new";
     }
 
-    @PostMapping("users")
+    @PostMapping("/")
     public String createUser(@ModelAttribute("user") User user,
                              @RequestParam(required = false, name = "1") String ADMIN,
                              @RequestParam(required = false, name = "2") String USER) {
@@ -59,17 +58,18 @@ public class AdminController {
         }
         user.setRoles(roleSet);
         userService.addUser(user);
-        return "redirect:users";
+
+        return "redirect:";
     }
 
-    @GetMapping("users/{id}/edit")
+    @GetMapping("/{id}/edit")
     public String editUser(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("roles", roleService.allRoles());
         return "edit";
     }
 
-    @PutMapping("users/{id}")
+    @PutMapping("/{id}")
     public String updateUser(@ModelAttribute("user") User user,
                              @RequestParam(required = false, name = "1") String ADMIN,
                              @RequestParam(required = false, name = "2") String USER) {
@@ -88,7 +88,7 @@ public class AdminController {
         return "redirect:";
     }
 
-    @DeleteMapping("users/{id}")
+    @DeleteMapping("/{id}")
     public String removeUser(@PathVariable("id") int id) {
         userService.removeUser(id);
         return "redirect:";

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Users</title>
+    <title>Admin panel</title>
 </head>
 
 <body>
@@ -27,9 +27,11 @@
     <td th:utext="${user.getAge()}"></td>
     <td th:utext="${user.getEmail()}"></td>
     <td th:utext="${user.getRolesToString()}"></td>
-    <td><a th:href="@{/admin/users/{id}/edit(id=${user.getId()})}">Edit</a></td>
+
+    <td><a th:href="@{/admin/{id}/edit(id=${user.getId()})}">Edit</a></td>
+
     <td>
-        <form th:method="DELETE" th:action="@{/admin/users/{id}(id=${user.getId()})}">
+        <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
             <input type="submit" value="Delete">
         </form>
     </td>
@@ -39,7 +41,7 @@
 <br/>
 <hr/>
 
-<a th:href="@{/admin/users/new}">new User</a>
+<a th:href="@{/admin/new}">new User</a>
 
 <br/>
 <hr/>
