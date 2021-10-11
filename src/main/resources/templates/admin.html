@@ -39,17 +39,27 @@
             </nav>
         </div>
 
-        <div class="col-md-10 px-md-5 border">
+        <div class="col-md-10 px-md-5">
 
             <br>
             <h2>Admin panel</h2>
 
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/admin">Users table</a>
+                    <a class="nav-link active" data-toggle="tab" href="#users" role="tab" aria-controls="users">Users
+                        table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#new" role="tab" aria-controls="new">New User</a>
+                </li>
 
-                    <table class="table">
-                        <thead class="thead-light">
+            </ul>
+
+            <div class="tab-content border bg-white">
+                <div class="tab-pane fade show active" id="users">
+                    <div class="p-3 mb-2 bg-light text-dark font-weight-bold"><h4>All users</h4></div>
+                    <table class="table table-striped bg-white">
+                        <thead>
                         <tr>
                             <th>id</th>
                             <th>FirstName</th>
@@ -61,44 +71,101 @@
                             <th>Delete</th>
                         </tr>
                         </thead>
-                        <tbody th:each="user : ${users}">
-                        <td th:utext="${user.getId()}"></td>
-                        <td th:utext="${user.getFirstName()}"></td>
-                        <td th:utext="${user.getLastName()}"></td>
-                        <td th:utext="${user.getAge()}"></td>
-                        <td th:utext="${user.getEmail()}"></td>
-                        <td th:utext="${user.getRolesToString()}"></td>
+                        <tbody>
+                        <tr th:each="user:${users}">
+                            <td th:utext="${user.getId()}"></td>
+                            <td th:utext="${user.getFirstName()}"></td>
+                            <td th:utext="${user.getLastName()}"></td>
+                            <td th:utext="${user.getAge()}"></td>
+                            <td th:utext="${user.getEmail()}"></td>
+                            <td th:utext="${user.getRolesToString()}"></td>
+                            <td>
+                                <form th:method="post" th:action="@{/admin/{id}/edit(id=${user.getId()})}">
+                                    <button type="submit" class="btn btn-info" value="edit">Edit</button>
+                                </form>
+                            </td>
 
-                        <td>
-                            <form th:method="post" th:action="@{/admin/{id}/edit(id=${user.getId()})}">
-                                <button type="submit" class="btn btn-info" value="edit">Edit</button>
-                            </form>
-                        </td>
-
-                        <td>
-                            <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
-                                <button type="submit" class="btn btn-danger" value="Delete">Delete</button>
-                            </form>
-                        </td>
+                            <td>
+                                <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+                                    <button type="submit" class="btn btn-danger" value="Delete">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
-                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#!">Link</a>
-                </li>
+                </div>
 
-            </ul>
+                <div class="tab-pane fade show" id="new">
 
-                <br/>
-                <hr/>
-                <a th:href="@{/admin/new}">new User</a>
-                <br/>
-                <hr/>
+                    <div class="p-3 mb-2 bg-light text-dark font-weight-bold"><h4>Add new user</h4></div>
+
+                    <div class="text-center">
+                        <form th:method="POST" th:action="@{/admin/}" th:object="${newUser}">
+
+                            <label for="firstName" class="font-weight-bolder">First Name</label>
+                            <div class="form-group item row justify-content-center">
+                                <input type="text" class="form-control col-sm-4 list-group-item-warning" id="firstName"
+                                       th:field="*{firstName}"
+                                       placeholder="First Name">
+                            </div>
+
+                            <label for="lastName" class="font-weight-bolder">Last Name</label>
+                            <div class="form-group row justify-content-center">
+                                <input type="text" class="form-control col-sm-4 list-group-item-warning" id="lastName"
+                                       th:field="*{lastName}"
+                                       placeholder="Last Name">
+                            </div>
+
+                            <label for="age" class="font-weight-bolder">Age</label>
+                            <div class="form-group row justify-content-center">
+                                <input type="text" class="form-control col-sm-4" id="age" th:field="*{age}"
+                                       placeholder="Age">
+                            </div>
+
+                            <label for="email" class="font-weight-bolder">Email</label>
+                            <div class="form-group row justify-content-center">
+                                <input type="text" class="form-control col-sm-4 list-group-item-warning" id="email"
+                                       th:field="*{email}"
+                                       placeholder="Email">
+                            </div>
+
+                            <label for="password" class="font-weight-bolder">Password</label>
+                            <div class="form-group row justify-content-center">
+                                <input type="text" class="form-control col-sm-4" id="password" th:field="*{password}"
+                                       placeholder="Password">
+                            </div>
+
+                            <label for="roles" class="font-weight-bolder">Role</label>
+                            <div>
+                                <select class="custom select col-sm-4" multiple id="roles" name="roles[]" size="2">
+                                    <option th:each="role:${roles}" th:value="${role.getId()}"
+                                            th:utext="${role.getRole()}"></option>
+                                </select>
+                            </div>
+                            <br/>
+
+                            <button type="submit" class="btn btn-success">Add new user</button>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>

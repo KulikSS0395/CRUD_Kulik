@@ -34,6 +34,8 @@ public class AdminController {
     public String allUsers(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("logUser", user);
         model.addAttribute("users", userService.getListUsers());
+        model.addAttribute("newUser", new User());
+        model.addAttribute("roles", roleService.allRoles());
         return "admin";
     }
 
@@ -46,17 +48,14 @@ public class AdminController {
 
     @PostMapping("/")
     public String createUser(@ModelAttribute("user") User user,
-                             @RequestParam(required = false, name = "1") String ADMIN,
-                             @RequestParam(required = false, name = "2") String USER) {
+                             @RequestParam(required = false, name = "roles[]") String[] ROLES) {
         Set<Role> roleSet = new HashSet<>();
-        if (ADMIN != null) {
-            roleSet.add(roleService.getRoleById(1));
-        }
-        if (USER != null) {
-            roleSet.add(roleService.getRoleById(2));
-        }
-        if (USER == null & ADMIN == null) {
-            roleSet.add(roleService.getRoleById(2));
+        if (ROLES == null) {
+            roleSet.add(roleService.getRoleById(2L));
+        } else {
+            for (String role : ROLES) {
+                roleSet.add(roleService.getRoleById(Integer.parseInt(role)));
+            }
         }
         user.setRoles(roleSet);
         userService.addUser(user);
@@ -73,17 +72,10 @@ public class AdminController {
 
     @PutMapping("/{id}")
     public String updateUser(@ModelAttribute("user") User user,
-                             @RequestParam(required = false, name = "1") String ADMIN,
-                             @RequestParam(required = false, name = "2") String USER) {
+                             @RequestParam(required = false, name = "roles[]") String[] ROLES) {
         Set<Role> roleSet = new HashSet<>();
-        if (ADMIN != null) {
-            roleSet.add(roleService.getRoleById(1));
-        }
-        if (USER != null) {
-            roleSet.add(roleService.getRoleById(2));
-        }
-        if (USER == null & ADMIN == null) {
-            roleSet.add(roleService.getRoleById(2));
+        for(String role: ROLES) {
+            roleSet.add(roleService.getRoleById(Integer.parseInt(role)));
         }
         user.setRoles(roleSet);
         userService.updateUser(user);
