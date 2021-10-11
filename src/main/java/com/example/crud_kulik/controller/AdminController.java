@@ -39,15 +39,15 @@ public class AdminController {
         return "admin";
     }
 
-    @GetMapping("/new")
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("roles", roleService.allRoles());
-        return "new";
-    }
+//    @GetMapping("/new")
+//    public String newUser(Model model) {
+//        model.addAttribute("user", new User());
+//        model.addAttribute("roles", roleService.allRoles());
+//        return "new";
+//    }
 
     @PostMapping("/")
-    public String createUser(@ModelAttribute("user") User user,
+    public String createUser(@ModelAttribute("newUser") User user,
                              @RequestParam(required = false, name = "roles[]") String[] ROLES) {
         Set<Role> roleSet = new HashSet<>();
         if (ROLES == null) {
@@ -63,14 +63,14 @@ public class AdminController {
         return "redirect:";
     }
 
-    @PostMapping("/{id}/edit")
-    public String editUser(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("roles", roleService.allRoles());
-        return "edit";
-    }
+//    @PostMapping("/{id}/edit")
+//    public String editUser(Model model, @PathVariable("id") int id) {
+//        model.addAttribute("user", userService.getUserById(id));
+//        model.addAttribute("roles", roleService.allRoles());
+//        return "edit";
+//    }
 
-    @PutMapping("/{id}")
+    @PutMapping("/")
     public String updateUser(@ModelAttribute("user") User user,
                              @RequestParam(required = false, name = "roles[]") String[] ROLES) {
         Set<Role> roleSet = new HashSet<>();
