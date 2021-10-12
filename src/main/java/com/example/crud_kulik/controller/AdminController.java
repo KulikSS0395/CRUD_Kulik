@@ -35,6 +35,7 @@ public class AdminController {
         model.addAttribute("logUser", user);
         model.addAttribute("users", userService.getListUsers());
         model.addAttribute("newUser", new User());
+        model.addAttribute("updateUser", new User());
         model.addAttribute("roles", roleService.allRoles());
         return "admin";
     }
@@ -70,15 +71,31 @@ public class AdminController {
 //        return "edit";
 //    }
 
-    @PutMapping("/")
-    public String updateUser(@ModelAttribute("user") User user,
-                             @RequestParam(required = false, name = "roles[]") String[] ROLES) {
+//    @PutMapping("/")
+    @RequestMapping(method = RequestMethod.PUT)
+    public String updateUser(@RequestParam(required = false, name = "firstNameEdit") String firstNameEdit,
+                             @RequestParam(required = false, name = "lastNameEdit") String lastNameEdit,
+                             @RequestParam(required = false, name = "ageEdit") int ageEdit,
+                             @RequestParam(required = false, name = "emailEdit") String emailEdit,
+                             @RequestParam(required = false, name = "passwordEdit") String passwordEdit,
+                             @RequestParam(required = false, name = "roles[]") String[] ROLES,
+                             @RequestParam (name = "idEdit") long idEdit) {
+        User updateUser = userService.getUserById(idEdit);
+        updateUser.setFirstName(firstNameEdit);
+        updateUser.setLastName(lastNameEdit);
+        updateUser.setAge(ageEdit);
+        updateUser.setEmail(emailEdit);
+        updateUser.setPassword(passwordEdit);
         Set<Role> roleSet = new HashSet<>();
-        for(String role: ROLES) {
-            roleSet.add(roleService.getRoleById(Integer.parseInt(role)));
+        if (ROLES == null) {
+            roleSet.add(roleService.getRoleById(2L));
+        } else {
+            for (String role : ROLES) {
+                roleSet.add(roleService.getRoleById(Integer.parseInt(role)));
+            }
         }
-        user.setRoles(roleSet);
-        userService.updateUser(user);
+        updateUser.setRoles(roleSet);
+        userService.updateUser(updateUser);
         return "redirect:";
     }
 
