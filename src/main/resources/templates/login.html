@@ -25,10 +25,11 @@
                 <h2> Please sing in</h2>
             </div>
 
-            <div th:if="${param.error}">
+            <div class="col-sm-10 offset-sm-2" th:if="${param.error}">
                 Invalid username and password.
+                <br>
             </div>
-            <div th:if="${param.logout}">
+            <div class="col-sm-10 offset-sm-2" th:if="${param.logout}">
                 You have been logged out.
             </div>
 

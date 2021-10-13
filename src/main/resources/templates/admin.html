@@ -105,15 +105,17 @@
 
                                                         <label for="IdEdit" class="font-weight-bolder">ID</label>
                                                         <div class="form-group item row justify-content-center">
-                                                            <input type="text" name="idEdit" class="form-control col-sm-4" id="IdEdit"
+                                                            <input type="text" name="idEdit"
+                                                                   class="form-control col-sm-4" id="IdEdit"
                                                                    th:value="${user.getId()}"
-                                                                   placeholder="id" readonly >
+                                                                   placeholder="id" readonly>
                                                         </div>
 
                                                         <label for="firstNameEdit" class="font-weight-bolder">First
                                                             Name</label>
                                                         <div class="form-group item row justify-content-center">
-                                                            <input type="text" name="firstNameEdit" class="form-control col-sm-4"
+                                                            <input type="text" name="firstNameEdit"
+                                                                   class="form-control col-sm-4" required
                                                                    id="firstNameEdit"
                                                                    th:value="${user.getFirstName()}"
                                                                    placeholder="First Name">
@@ -122,7 +124,8 @@
                                                         <label for="lastNameEdit" class="font-weight-bolder">Last
                                                             Name</label>
                                                         <div class="form-group item row justify-content-center">
-                                                            <input type="text" name="lastNameEdit" class="form-control col-sm-4"
+                                                            <input type="text" name="lastNameEdit"
+                                                                   class="form-control col-sm-4"
                                                                    id="lastNameEdit"
                                                                    th:value="${user.getLastName()}"
                                                                    placeholder="Last Name">
@@ -130,7 +133,8 @@
 
                                                         <label for="ageEdit" class="font-weight-bolder">Age</label>
                                                         <div class="form-group item row justify-content-center">
-                                                            <input type="text" name="ageEdit" class="form-control col-sm-4"
+                                                            <input type="number" name="ageEdit"
+                                                                   class="form-control col-sm-4"
                                                                    id="ageEdit"
                                                                    th:value="${user.getAge()}"
                                                                    placeholder="Age">
@@ -138,7 +142,8 @@
 
                                                         <label for="emailEdit" class="font-weight-bolder">Email</label>
                                                         <div class="form-group item row justify-content-center">
-                                                            <input type="text" name="emailEdit" class="form-control col-sm-4"
+                                                            <input type="email" name="emailEdit"
+                                                                   class="form-control col-sm-4" required
                                                                    id="emailEdit"
                                                                    th:value="${user.getEmail()}"
                                                                    placeholder="Email">
@@ -147,7 +152,8 @@
                                                         <label for="passwordEdit"
                                                                class="font-weight-bolder">Password</label>
                                                         <div class="form-group item row justify-content-center">
-                                                            <input type="text" name="passwordEdit" class="form-control col-sm-4"
+                                                            <input type="text" name="passwordEdit"
+                                                                   class="form-control col-sm-4" required
                                                                    id="passwordEdit"
                                                                    placeholder="Password">
                                                         </div>
@@ -181,18 +187,19 @@
                                 <td>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-danger" data-toggle="modal"
-                                            th:attr="data-target=${'#model'+user.getId()}">
-                                        Edit
+                                            th:attr="data-target=${'#modelDELETE'+user.getId()}">
+                                        Delete
                                     </button>
 
                                     <!-- Modal -->
-                                    <form th:method="PUT" th:action="@{/admin/}" th:object="${user}">
-                                        <div class="modal fade" th:id="model+${user.getId()}"
+                                    <form th:method="DELETE" th:action="@{/admin/}" th:object="${user}">
+                                        <div class="modal fade" th:id="modelDELETE+${user.getId()}"
                                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabelDELETE">DELETE
+                                                            user</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -200,64 +207,63 @@
                                                     </div>
                                                     <div class="modal-body text-center">
 
-                                                        <label for="IdEdit" class="font-weight-bolder">ID</label>
+                                                        <label for="IdDelete" class="font-weight-bolder">ID</label>
                                                         <div class="form-group item row justify-content-center">
-                                                            <input type="text" name="idEdit" class="form-control col-sm-4" id="IdEdit"
+                                                            <input type="text" name="idDelete"
+                                                                   class="form-control col-sm-4" id="IdDelete"
                                                                    th:value="${user.getId()}"
-                                                                   placeholder="id" readonly >
+                                                                   placeholder="id" readonly>
                                                         </div>
 
-                                                        <label for="firstNameEdit" class="font-weight-bolder">First
+                                                        <label for="firstNameDelete" class="font-weight-bolder">First
                                                             Name</label>
                                                         <div class="form-group item row justify-content-center">
-                                                            <input type="text" name="firstNameEdit" class="form-control col-sm-4"
-                                                                   id="firstNameEdit"
+                                                            <input type="text" name="firstNameDelete"
+                                                                   class="form-control col-sm-4"
+                                                                   id="firstNameDelete"
                                                                    th:value="${user.getFirstName()}"
-                                                                   placeholder="First Name">
+                                                                   placeholder="First Name" readonly>
                                                         </div>
 
-                                                        <label for="lastNameEdit" class="font-weight-bolder">Last
+                                                        <label for="lastNameDelete" class="font-weight-bolder">Last
                                                             Name</label>
                                                         <div class="form-group item row justify-content-center">
-                                                            <input type="text" name="lastNameEdit" class="form-control col-sm-4"
-                                                                   id="lastNameEdit"
+                                                            <input type="text" name="lastNameDelete"
+                                                                   class="form-control col-sm-4"
+                                                                   id="lastNameDelete"
                                                                    th:value="${user.getLastName()}"
-                                                                   placeholder="Last Name">
+                                                                   placeholder="Last Name" readonly>
                                                         </div>
 
-                                                        <label for="ageEdit" class="font-weight-bolder">Age</label>
+                                                        <label for="ageDelete" class="font-weight-bolder">Age</label>
                                                         <div class="form-group item row justify-content-center">
-                                                            <input type="text" name="ageEdit" class="form-control col-sm-4"
-                                                                   id="ageEdit"
+                                                            <input type="text" name="ageDelete"
+                                                                   class="form-control col-sm-4"
+                                                                   id="ageDelete"
                                                                    th:value="${user.getAge()}"
-                                                                   placeholder="Age">
+                                                                   placeholder="Age" readonly>
                                                         </div>
 
-                                                        <label for="emailEdit" class="font-weight-bolder">Email</label>
+                                                        <label for="emailDelete"
+                                                               class="font-weight-bolder">Email</label>
                                                         <div class="form-group item row justify-content-center">
-                                                            <input type="text" name="emailEdit" class="form-control col-sm-4"
-                                                                   id="emailEdit"
+                                                            <input type="email" name="emailDelete"
+                                                                   class="form-control col-sm-4"
+                                                                   id="emailDelete"
                                                                    th:value="${user.getEmail()}"
-                                                                   placeholder="Email">
+                                                                   placeholder="Email" readonly>
                                                         </div>
 
-                                                        <label for="passwordEdit"
-                                                               class="font-weight-bolder">Password</label>
-                                                        <div class="form-group item row justify-content-center">
-                                                            <input type="text" name="passwordEdit" class="form-control col-sm-4"
-                                                                   id="passwordEdit"
-                                                                   placeholder="Password">
-                                                        </div>
-
-                                                        <label for="rolesEdit" class="font-weight-bolder">Role</label>
+                                                        <label for="rolesDelete" class="font-weight-bolder">Role</label>
                                                         <div>
-                                                            <select class="custom select col-sm-4" multiple
-                                                                    id="rolesEdit" name="roles[]" size="2">
-                                                                <option th:each="role:${roles}"
+                                                            <select class="custom select col-sm-4" disabled multiple
+                                                                    id="rolesDelete" name="roles[]Delete" size="2">
+                                                                <option th:each="role:${user.getRoles()}"
                                                                         th:value="${role.getId()}"
                                                                         th:utext="${role.getRole()}"></option>
                                                             </select>
                                                         </div>
+
                                                         <br/>
 
                                                     </div>
@@ -265,8 +271,8 @@
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Close
                                                         </button>
-                                                        <button type="submit" class="btn btn-primary" value="edit">
-                                                            Edit
+                                                        <button type="submit" class="btn btn-danger" value="Delete">
+                                                            Delete
                                                         </button>
                                                     </div>
                                                 </div>
@@ -274,13 +280,6 @@
                                         </div>
                                     </form>
                                 </td>
-
-                                <td>
-                                    <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
-                                        <button type="submit" class="btn btn-danger" value="Delete">Delete</button>
-                                    </form>
-                                </td>
-
                             </tr>
                             </tbody>
                         </table>
@@ -296,7 +295,7 @@
 
                             <label for="firstName" class="font-weight-bolder">First Name</label>
                             <div class="form-group item row justify-content-center">
-                                <input type="text" class="form-control col-sm-4" id="firstName"
+                                <input type="text" class="form-control col-sm-4" required id="firstName"
                                        th:field="*{firstName}"
                                        placeholder="First Name">
                             </div>
@@ -310,20 +309,20 @@
 
                             <label for="age" class="font-weight-bolder">Age</label>
                             <div class="form-group row justify-content-center">
-                                <input type="text" class="form-control col-sm-4" id="age" th:field="*{age}"
+                                <input type="number" class="form-control col-sm-4" id="age" th:field="*{age}"
                                        placeholder="Age">
                             </div>
 
                             <label for="email" class="font-weight-bolder">Email</label>
                             <div class="form-group row justify-content-center">
-                                <input type="text" class="form-control col-sm-4" id="email"
+                                <input type="email" class="form-control col-sm-4" required id="email"
                                        th:field="*{email}"
                                        placeholder="Email">
                             </div>
 
                             <label for="password" class="font-weight-bolder">Password</label>
                             <div class="form-group row justify-content-center">
-                                <input type="text" class="form-control col-sm-4" id="password" th:field="*{password}"
+                                <input type="text" class="form-control col-sm-4" required id="password" th:field="*{password}"
                                        placeholder="Password">
                             </div>
 

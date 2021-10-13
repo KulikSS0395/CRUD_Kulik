@@ -40,13 +40,6 @@ public class AdminController {
         return "admin";
     }
 
-//    @GetMapping("/new")
-//    public String newUser(Model model) {
-//        model.addAttribute("user", new User());
-//        model.addAttribute("roles", roleService.allRoles());
-//        return "new";
-//    }
-
     @PostMapping("/")
     public String createUser(@ModelAttribute("newUser") User user,
                              @RequestParam(required = false, name = "roles[]") String[] ROLES) {
@@ -64,14 +57,6 @@ public class AdminController {
         return "redirect:";
     }
 
-//    @PostMapping("/{id}/edit")
-//    public String editUser(Model model, @PathVariable("id") int id) {
-//        model.addAttribute("user", userService.getUserById(id));
-//        model.addAttribute("roles", roleService.allRoles());
-//        return "edit";
-//    }
-
-//    @PutMapping("/")
     @RequestMapping(method = RequestMethod.PUT)
     public String updateUser(@RequestParam(required = false, name = "firstNameEdit") String firstNameEdit,
                              @RequestParam(required = false, name = "lastNameEdit") String lastNameEdit,
@@ -99,16 +84,10 @@ public class AdminController {
         return "redirect:";
     }
 
-    @DeleteMapping("/{id}")
-    public String removeUser(@PathVariable("id") int id) {
-        userService.removeUser(id);
+    @DeleteMapping("/")
+    public String removeUser(@RequestParam (name = "idDelete") long idDelete) {
+        userService.removeUser(idDelete);
         return "redirect:";
-    }
-
-    @GetMapping("/user_{name}")
-    public String showUser(@PathVariable("name") String name, Model model) {
-        model.addAttribute("user", userService.findByFirstName(name));
-        return "user";
     }
 
 }

@@ -148,6 +148,14 @@ public class User implements UserDetails {
         return stringBuilder.toString();
     }
 
+    public String getRolesToFormDelete() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Role role: roles) {
+            stringBuilder.append(role.getRole()).append('\n');
+        }
+        return stringBuilder.toString();
+    }
+
     @Override
     public String toString() {
         return "User{" +
