@@ -4,6 +4,8 @@ import com.example.crud_kulik.entity.User;
 import com.example.crud_kulik.service.RoleService;
 import com.example.crud_kulik.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,33 +27,50 @@ public class AdminRESTController {
     }
 
     @GetMapping("/users")
-    public List<User> showAllUsers(){
+    public ResponseEntity<List<User>> showAllUsers(){
         List<User> userList = userService.getListUsers();
-        return userList;
+        return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}")
-    public User showUser(@PathVariable long id) {
+    public ResponseEntity<User> showUser(@PathVariable Integer id) {
+
+        if (id == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         User user = userService.getUserById(id);
-        return user;
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping("/users")
-    public User addUser(@RequestBody User user) {
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         userService.addUser(user);
-        return user;
+        return ResponseEntity.ok(user)  ;
     }
 
     @PutMapping("/users")
-    public User updateUser(@RequestBody User user) {
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         userService.updateUser(user);
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @DeleteMapping("/users/{id}")
-    public String deleteUser(@PathVariable long id) {
+    public ResponseEntity<User> deleteUser(@PathVariable long id) {
+        User user = this.userService.getUserById(id);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         userService.removeUser(id);
-        return "user with id " + id + " delete";
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 }
