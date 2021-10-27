@@ -57,7 +57,7 @@ public class AdminController {
         return "redirect:";
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @PutMapping
     public String updateUser(@RequestParam(required = false, name = "firstNameEdit") String firstNameEdit,
                              @RequestParam(required = false, name = "lastNameEdit") String lastNameEdit,
                              @RequestParam(required = false, name = "ageEdit") int ageEdit,
